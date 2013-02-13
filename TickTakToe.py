@@ -31,8 +31,6 @@ class Game(object):
 		
 	def move(self, side, pos):
 		board[pos[1]][pos[0]] = side
-		#print side ,"POS" ,pos
-		#print '/n', board
 		pygame.draw.rect(self.screen,(side*100,0,side*100),(pos[0]*100,pos[1]*100,100,100))
 		self.setup_board(white=1)
 		self.check_win()
@@ -40,21 +38,8 @@ class Game(object):
 			boxes_ai.append(pos)
 		elif side == 1 and self.game_over == False:
 			boxes_player.append(pos)
-			#print self.player_ai.move()
 			self.move(2,self.player_ai.move(board, wins, boxes_player, boxes_ai))
 			self.check_win()
-			
-	def menu(self):
-		self.menu_on = True
-		text = pygame.font.Font(None, 22).render('Do you want to go First? (y/n)', True, (255, 255, 255), (159, 182, 205))
-		textrect = text.get_rect()
-		textrect.centerx = self.screen.get_rect().centerx
-		textrect.centery = 75
-		while(self.menu_on ==True):
-			self.screen.fill([255,255,255])
-			self.screen.blit(text, textrect)
-			self.M_input()
-			pygame.display.flip()
 			
 	def check_win(self):
 		for winners in wins:
@@ -63,34 +48,33 @@ class Game(object):
 				if boxes in winners and self.game_over == False:
 					i+=1
 					if i==3:
-						print "Player wins " ,winners
-						self.screen.blit(pygame.font.Font(None, 22).render('Player wins '+str(winners), True, (255, 255, 255), (159, 182, 205)), (150,150))
+						#print "Player wins " ,winners
+						self.screen.blit(pygame.font.Font(None, 22).render('Player wins '+str(winners), True, (255, 255, 255), (159, 182, 205)), (10,150))
 						self.game_over = True
 			i=0
 			for boxes in boxes_ai:
 				if boxes in winners and self.game_over == False:
 					i+=1
 					if i==3:
-						print "AI wins " ,winners
-						self.screen.blit(pygame.font.Font(None, 22).render('AI wins '+str(winners), True, (255, 255, 255), (159, 182, 205)), (150,150))
+						#print "AI wins " ,winners
+						self.screen.blit(pygame.font.Font(None, 22).render('AI wins '+str(winners), True, (255, 255, 255), (159, 182, 205)), (10,150))
 						self.game_over = True
 		#check for tie
 		open_squares = [[i, j] for i in range(3) for j in range(3) if board[i][j] == 0]
 		if len(open_squares) == 0:
-			print "Tie Game"
+			#print "Tie Game"
 			self.screen.blit(pygame.font.Font(None, 22).render('Tie Game', True, (255, 255, 255), (159, 182, 205)), (150,150))
 			self.game_over = True
 			
 	def main_loop(self, ai_first):
-		#self.menu()
 		self.setup_board()
 		if(ai_first):
 			self.move(2,self.player_ai.move(board, wins, boxes_player, boxes_ai))
-		#if raw_input("would you like to go first? (y/n)") == 'n':
-		#    self.move(2,self.player_ai.move())
 		while self.game_over==False:
 			self.G_input()
 			pygame.display.flip()
+			if self.game_over==True:
+				pygame.time.wait(1000)
 					
 	def G_input(self):
 		mousepos = pygame.mouse.get_pos()
@@ -104,5 +88,6 @@ class Game(object):
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_ESCAPE:
 					self.game_over = True
+					pygame.quit()
 if __name__ == "__main__":
 	g=Game()

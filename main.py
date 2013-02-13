@@ -28,17 +28,17 @@ class Main(object):
 		self.main_menu = True
 		
 	def ai_first(self):
-		print "AI goes First"
+		#print "AI goes First"
 		self.main_menu = False
 		g.game.main_loop(True)
 		
 	def ai_second(self):
-		print "Options"
+		#print "Options"
 		self.main_menu = False
 		g.game.main_loop(False)
 	
 	def credit_screen(self):
-		print "Credits"
+		#print "Credits"
 		self.main_menu = False
 		
 	def quit_game(self):
@@ -58,3 +58,5 @@ if __name__ =="__main__":
 			#print "start game"
 			
 		pygame.display.flip()
+
+

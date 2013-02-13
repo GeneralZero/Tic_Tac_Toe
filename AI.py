@@ -75,7 +75,7 @@ class AI(object):
 				if i==2:
 					for openbox in self.open_squares:
 						if openbox in winners:
-							print "Win", openbox
+							#print "Win", openbox
 							return openbox
 						
 	def check_to_trap(self, boxes_player):
