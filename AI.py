@@ -25,6 +25,7 @@ class AI(object):
 		#print board
 		#print "Open", self.open_squares
 
+		#Check for Win conditions or loose conditions
 		ret = self.check_to_win(wins, boxes_ai)
 		if ret != None:
 			return ret
@@ -38,6 +39,7 @@ class AI(object):
 		if ret != None:
 			return ret
 		
+		#Place the first block
 		firsts = [[1,1],[0,0],[0,2],[2,0],[2,2]]
 		for a in firsts:
 			if a in self.open_squares:
@@ -79,9 +81,7 @@ class AI(object):
 							return openbox
 						
 	def check_to_trap(self, boxes_player):
-		#print "AI Win Moves before"
-		#for a in self.ai_set:
-		#    print a
+		#Check to see if AI is trapped
 		for a in self.ai_set:
 			for b in boxes_player:
 				if b in a and a in self.ai_set:
@@ -99,9 +99,7 @@ class AI(object):
 		#    print a
 
 	def check_to_traped(self, boxes_ai):
-		#print "Player Win Moves before"
-		#for a in self.player_set:
-		#    print a
+		#Check to see if AI can trap Player
 		for a in self.player_set:
 			for b in boxes_ai:
 				if b in a and a in self.player_set:
@@ -114,6 +112,3 @@ class AI(object):
 					if i>1:
 						#print "Trapping:", openbox
 						return openbox
-		#print "Player Win Moves after"
-		#for a in self.player_set:
-		#    print a

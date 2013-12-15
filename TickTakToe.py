@@ -44,22 +44,22 @@ class Game(object):
 	def check_win(self):
 		for winners in wins:
 			i=0
+			#Check to see if player wins
 			for boxes in boxes_player:
 				if boxes in winners and self.game_over == False:
 					i+=1
 					if i==3:
-						#print "Player wins " ,winners
 						self.screen.blit(pygame.font.Font(None, 22).render('Player wins '+str(winners), True, (255, 255, 255), (159, 182, 205)), (10,150))
 						self.game_over = True
 			i=0
+			#Check to see if AI wins
 			for boxes in boxes_ai:
 				if boxes in winners and self.game_over == False:
 					i+=1
 					if i==3:
-						#print "AI wins " ,winners
 						self.screen.blit(pygame.font.Font(None, 22).render('AI wins '+str(winners), True, (255, 255, 255), (159, 182, 205)), (10,150))
 						self.game_over = True
-		#check for tie
+		#Check To see if none wins
 		open_squares = [[i, j] for i in range(3) for j in range(3) if board[i][j] == 0]
 		if len(open_squares) == 0:
 			#print "Tie Game"
@@ -68,8 +68,10 @@ class Game(object):
 			
 	def main_loop(self, ai_first):
 		self.setup_board()
+		#Does AI move first?
 		if(ai_first):
 			self.move(2,self.player_ai.move(board, wins, boxes_player, boxes_ai))
+		#Game Loop
 		while self.game_over==False:
 			self.G_input()
 			pygame.display.flip()
@@ -77,9 +79,11 @@ class Game(object):
 				pygame.time.wait(1000)
 					
 	def G_input(self):
+		#Get Mouse and Keyboard input
 		mousepos = pygame.mouse.get_pos()
 		for event in pygame.event.get():
 			if event.type == pygame.MOUSEBUTTONDOWN:
+				#Select square on which was clicked on
 				if board[int(mousepos[1]/100)][int(mousepos[0]/100)] == 0 and event.button == 1:
 					self.move(1,[int(mousepos[0]/100),int(mousepos[1]/100)])
 				if event.type == pygame.QUIT:

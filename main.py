@@ -16,6 +16,7 @@ class Main(object):
 
 		
 	def setup_menu(self, title="My Game", image=None):
+		#Setup menu
 		self.menu = Menu.EzMenu(
 			["AI goes First", self.ai_first],
 			["Player goes First", self.ai_second],
@@ -48,6 +49,7 @@ class Main(object):
 if __name__ =="__main__":
 	g=Main()
 	g.screen.fill((255, 255, 255))
+	#Main Game loop
 	while(not g.game.game_over):
 		events = pygame.event.get()
 		if(g.main_menu):
